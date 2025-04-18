@@ -15,7 +15,6 @@ import dotenv from 'dotenv';
 dotenv.config();
 const ai = new GoogleGenAI({ apiKey: process.env.geminiAPIKEY });
 
-// mongodb+srv://etcclark:<db_password>@cluster0.y3dvukj.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 
 async function getAllHeadlines() {
   const currentHeadlines = ["CNN", "Fox News", "AP", "MSNBC", "ABC", "NPR", "Politico", "Usa Today", "Washington Post"]

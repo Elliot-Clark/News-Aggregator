@@ -1,6 +1,5 @@
 .env
-errors
-message
+/logs
 # Playwright
 node_modules/
 /test-results/
