@@ -1,4 +1,6 @@
 .env
+errors
+message
 # Playwright
 node_modules/
 /test-results/
