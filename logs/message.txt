@@ -1,0 +1,29 @@
+[
+  [
+    "A shooting occurred at Florida State University.",
+    "https://www.cnn.com/us/live-news/fsu-campus-shooting-04-17-25/index.html",
+    "https://www.cnn.com/2025/04/17/us/video/video-shows-gunfire-florida-state-university-school-shooting-digvid",
+    "https://www.cnn.com/2025/04/17/us/video/police-identify-fsu-shooting-suspect-ikner-sheriff-deputy-son-digvid",
+    "https://www.cnn.com/2025/04/17/us/video/florida-state-university-shooting-student-cnc-digvid"
+  ],
+  [
+    "The Supreme Court is set to hear a challenge regarding Trump's plan concerning birthright citizenship.",
+    "https://www.cnn.com/2025/04/17/politics/supreme-court-birthright-citizenship/index.html"
+  ],
+  [
+    "Luigi Mangione was indicted on federal charges related to the killing of the UnitedHealthcare CEO.",
+    "https://www.cnn.com/2025/04/17/us/luigi-mangione-indicted-federal-charges/index.html"
+  ],
+  [
+    "The Supreme Court may soon offer clues whether Trump can fire Jerome Powell.",
+    "https://www.cnn.com/2025/04/17/politics/can-trump-fire-jerome-powell-supreme-court-humphreys-executor/index.html"
+  ],
+  [
+    "An appeals court has backed a judge in the Abrego Garcia case.",
+    "https://www.cnn.com/2025/04/17/politics/4th-circuit-wilkinson-abrego-garcia-xinis/index.html"
+  ],
+  [
+    "Trump says he is not involved in the case of the Maryland man mistakenly deported to El Salvador.",
+    "https://www.cnn.com/politics/live-news/trump-tariffs-immigration-news-04-17-25/index.html"
+  ]
+]
