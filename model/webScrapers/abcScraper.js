@@ -11,10 +11,17 @@ async function getHeadlines_ABC() {
     const headlines = await page.evaluate(() => {
         return Array.from(document.querySelectorAll('.PFoxV')).map(ele => {
           const parentLink = ele.closest('a');
+
+          let href = parentLink ? parentLink.getAttribute('href') : null;
+          if (href) {
+            href = href.replace(/^https:\/\/(www\.)?/, '');
+          }
+
           return {
             text: ele.innerText.trim(),
-            href: parentLink ? parentLink.getAttribute('href') : null
+            href: href
           };
+          
         }).filter(item => item.text !== '' && item.href !== null);
     });
 

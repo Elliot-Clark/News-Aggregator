@@ -1,19 +1,22 @@
 const { chromium } = require('playwright');
 
-async function getHeadlines_AP() {
+async function getHeadlines_MSNBC() {
     const browser = await chromium.launch({
         headless: true
     });
     const context = await browser.newContext();
     const page = await context.newPage();
 
-    await page.goto('https://apnews.com/', { waitUntil: 'domcontentloaded' });
+    await page.goto('https://www.msnbc.com/', { waitUntil: 'domcontentloaded' });
     let headlines = await page.evaluate(() => {
-        return Array.from(document.querySelectorAll('span.PagePromoContentIcons-text')).map(ele => {
-            const parentLink = ele.closest('a');
+        return Array.from(document.querySelectorAll('h2.multistoryline__headline > a')).map(ele => {
+            let href = ele.getAttribute('href')
+            if (href) {
+              href = href.replace(/^https:\/\/(www\.)?/, '');
+            }
             return {
-                text: ele.innerText.trim(),
-                href: parentLink ? parentLink.getAttribute('href') : null
+              text: ele.innerText.trim(),
+              href: href
             };
         });
     });
@@ -23,8 +26,7 @@ async function getHeadlines_AP() {
     //---------------------
     await context.close();
     await browser.close();
-
     return headlines;
 }
 
-module.exports = getHeadlines_AP;
+module.exports = getHeadlines_MSNBC;

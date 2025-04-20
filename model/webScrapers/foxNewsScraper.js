@@ -10,9 +10,13 @@ async function getHeadlines_Fox() {
     await page.goto('https://www.foxnews.com/', { waitUntil: 'domcontentloaded' });
     let headlines = await page.evaluate(() => {
         return Array.from(document.querySelectorAll('h3.title > a')).map(ele => {
+            let href = ele.getAttribute('href')
+            if (href) {
+              href = href.replace(/^https:\/\/(www\.)?/, '');
+            }
             return {
-                text: ele.innerText.trim(),
-                href: ele.getAttribute('href')
+              text: ele.innerText.trim(),
+              href: href
             };
         });
     });

@@ -11,9 +11,14 @@ async function getHeadlines_Politico() {
     const headlines = await page.evaluate(() => {
         return Array.from(document.querySelectorAll('.headline')).map(ele => {
           const childLink = ele.querySelector('a')
+          let href = childLink ? childLink.getAttribute('href') : null;
+          if (href) {
+            href = href.replace(/^https:\/\/(www\.)?/, '');
+          }
+
           return {
             text: ele.innerText.trim(),
-            href: childLink ? childLink.getAttribute('href') : null
+            href: href
           };
         }).filter(item => item.text !== '' && item.href !== null);
     });

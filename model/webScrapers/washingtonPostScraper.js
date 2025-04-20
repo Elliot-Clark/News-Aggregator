@@ -10,9 +10,13 @@ async function getHeadlines_WashingtonPost() {
     await page.goto('https://www.washingtonpost.com/', { waitUntil: 'domcontentloaded' });
     const headlines = await page.evaluate(() => {
         return Array.from(document.querySelectorAll('a[data-pb-local-content-field="web_headline"]')).map(ele => {
+          let href = ele.getAttribute('href')
+          if (href) {
+            href = href.replace(/^https:\/\/(www\.)?/, '');
+          }
           return {
             text: ele.innerText.trim(),
-            href: ele.getAttribute('href')
+            href: href
           };
         })
     });

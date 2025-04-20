@@ -9,11 +9,16 @@ async function getHeadlines_CNN() {
 
   await page.goto('https://www.cnn.com/', { waitUntil: 'domcontentloaded' });
   const headlines = await page.evaluate(() => {
-      return Array.from(document.querySelectorAll('[data-editable="headline"]')).map(el => {
-        const parentLink = el.closest('a');
+      return Array.from(document.querySelectorAll('[data-editable="headline"]')).map(ele => {
+        const parentLink = ele.closest('a');
+        let href = parentLink ? "cnn.com" + parentLink.getAttribute('href') : null
+        if (href) {
+          href = href.replace(/^https:\/\/(www\.)?/, '');
+        }
+
         return {
-          text: el.innerText.trim(),
-          href: parentLink ? "https://www.cnn.com" + parentLink.getAttribute('href') : null
+          text: ele.innerText.trim(),
+          href: href
         };
       }).filter(item => item.text !== '' && item.href !== null);
   });
