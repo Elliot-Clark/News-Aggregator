@@ -1,28 +1,50 @@
+//React Frontend
 import './App.css';
+import React, { useEffect, useState } from 'react';
 
 const App = () => {
-  let testArr = [
-    ["Test", "www.google.com", "www.yahoo.com"],
-    ["Test2", "www.amazon.com", "www.cnn.com"]
-  ]
+  let [newsArray, setNewsArray] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/news')
+      .then(response => response.json())
+      .then(data => {
+        setNewsArray(data);
+        console.log(data);
+      })
+      .catch(error => {
+         console.error("Error fetching data:", error);
+      });
+  }, []);
+
+  // const fetchData = async () => {
+  //   console.log("Running");
+  
+  //   try {
+  //     const res = await fetch('http://localhost:5000/news')
+  //     newsArray = await res.json();
+  //     console.log('Response data:', newsArray);
+  //   } catch (err) {
+  //     console.error('Error fetching data:', err);
+  //   }
+  // };
     
   return (
     <div className="App">
       <header className="App-header">
         <h1>News Aggregator</h1>
         <span>Your daily dose of news from around the web</span>
-
-        <div id="news">
-
-          {testArr.map((ele, index) => (
-            <div className="newsHeading" key={index}>
-              <h1>{ele[0]}</h1>
-              <p>{ele[1]}</p>
-            </div>
-          ))}
-
-        </div>
+        {/* <button id="loadBtn" onClick={fetchData}>Load Data</button> */}
       </header>
+      <div id="news">
+        {newsArray.map((ele, index) => (
+          <div className="newsHeading" key={index}>
+            <h1>{ele[0]}</h1>
+            <p>{ele[1]}</p>
+          </div>
+        ))}
+      </div>
+      
     </div>
   );
 }

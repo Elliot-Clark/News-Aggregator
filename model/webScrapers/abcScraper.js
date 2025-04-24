@@ -32,5 +32,5 @@ async function getHeadlines_ABC() {
     return headlines;
 }
 
-getHeadlines_ABC();
+// getHeadlines_ABC();
 module.exports = getHeadlines_ABC;
