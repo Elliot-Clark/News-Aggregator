@@ -1,7 +1,15 @@
 //React Frontend
 import React, { Component } from "react";
 import './App.css';
-// import React, { useEffect, useState } from 'react';
+import abc_logo from './images/abcnews_logo.svg';
+import apnews_logo from './images/apnews_logo.svg';
+import cnn_logo from './images/cnn_logo.svg';
+import foxnews_logo from './images/foxnews_logo.svg';
+import msnbc_logo from './images/msnbc_logo.svg';
+import npr_logo from './images/npr_logo.svg';
+import politico_logo from './images/politico_logo.svg';
+import usatoday_logo from './images/usatoday_logo.svg';
+import washingtonpost_logo from './images/washingtonpost_logo.svg';
 
 class App extends Component {
   state = {
@@ -71,16 +79,50 @@ class App extends Component {
   }
 
   render() {
+
+    const logoMap = {
+      abcnews: abc_logo,
+      apnews: apnews_logo,
+      cnn: cnn_logo,
+      foxnews: foxnews_logo,
+      msnbc: msnbc_logo,
+      npr: npr_logo,
+      politico: politico_logo,
+      usatoday: usatoday_logo,
+      washingtonpost: washingtonpost_logo
+    };
+
+    let loadLogoLinks = (newsArray, index) => {
+      if (index === 0) {
+        return
+      }
+      const source = newsArray.split(".")[0];
+      const logoSrc = logoMap[source];
+      return <a 
+      href={"https://www." + newsArray} 
+      target="_blank" 
+      rel="noopener noreferrer">
+        <img 
+          src={logoSrc} 
+          alt={source + " Logo Image"}>
+        </img>
+      </a>
+    }
+
     return (
       <div className="App">
-        <h1>News Aggregator</h1>
-        <span>Your daily dose of news from around the web</span>
-        <button id="loadBtn" onClick={this.fetchData}>Load Data</button>
+        <div id="header">
+          <h1>Elliot's News Aggregator</h1>
+          <span>Your daily dose of news from around the web</span>
+        </div>
+        <div id="seperator"></div>
         <div id="news">
-          {this.state.newsData.map((ele, index) => (
+          {this.state.newsData.map((newsArrayes, index) => (
             <div className="newsHeading" key={index}>
-              <h1>{ele[0]}</h1>
-              <p>{ele[1]}</p>
+              <h1>{newsArrayes[0]}</h1>
+              <div className="logos"><h2>Reported by:</h2>{newsArrayes.map((newsArray, index) => 
+                <div className="logoLinks" key={index}>{loadLogoLinks(newsArray, index)}</div>
+              )}</div>
             </div>
           ))}
         </div>
