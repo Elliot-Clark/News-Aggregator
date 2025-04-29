@@ -13,6 +13,10 @@ import washingtonpost_logo from './images/washingtonpost_logo.svg';
 
 class App extends Component {
   state = {
+    months: [
+      "january", "february", "march", "april", "may", "june",
+      "july", "august", "september", "october", "november", "december"
+    ],
     newsData: [
       [
           "Donald Trump is facing criticism for stating that Ukrainian President Zelenskyy is prolonging the war by refusing to cede Crimea to Russia.",
@@ -66,10 +70,28 @@ class App extends Component {
   ]
   }
 
+  arrangeData = (data) => {
+    // News is sorted so headlines with the most news agencies reporting it are at the top
+    let temp = this.state.newsData
+    for (let x = 1; x < temp.length -1; x++) {
+      if (x <= 0) {
+        continue
+      }
+      if (temp[x - 1].length < temp[x].length) {
+        let tmp = temp[x]
+        temp[x] = temp[x - 1]
+        temp[x - 1] = tmp
+        x-= 2;
+      }
+    }
+    // this.setState({newsData: data})
+  }
+
   fetchData = async () => {
     fetch('http://localhost:5000/news')
       .then(response => response.json())
       .then(data => {
+        // arrangeData(data);
         this.setState({ newsData: data });
         console.log(data);
       })
@@ -78,8 +100,16 @@ class App extends Component {
       });
   }
 
-  render() {
+  componentDidMount() {
+    let date = new Date();
+    document.getElementById("year").value = date.getYear() + 1900;
+    const monthIndex = date.getMonth();
+    document.getElementById("month").value = this.state.months[monthIndex];
+    document.getElementById("day").value = date.getDate();
+  }
 
+  render() {
+    this.arrangeData();
     const logoMap = {
       abcnews: abc_logo,
       apnews: apnews_logo,
@@ -109,18 +139,113 @@ class App extends Component {
       </a>
     }
 
+    const adjustDate = (direction) => {
+      let dayCount = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+      let month = this.state.months.indexOf(document.getElementById("month").value)
+      let day = parseInt(document.getElementById("day").value)
+      let year = document.getElementById("year").value
+      if (year % 4 === 0) {
+        dayCount[1] = 29;
+      }
+      day += direction;
+      // If subtracted day turns over to the previous month
+      if (day === 0) {
+        month--;
+        if (month === -1) {
+          year--;
+          month = 11;
+        }
+        day = dayCount[month]
+      }
+      // If added day turns over to the next month
+      if (day > dayCount[month]) {
+        month++;
+        if (month === 12) {
+          year++;
+          month = 0;
+        }
+        day = 1;
+      }
+      document.getElementById("month").value = this.state.months[month]
+      document.getElementById("day").value = day;
+      document.getElementById("year").value = year;
+    } 
+
+    const queryYesterday = () => {
+      adjustDate(-1);
+    }
+
+    const queryTomorrow = () => {
+      adjustDate(1);
+    }
+
+    const submit = () => {
+      // TODO: Query for given date;
+      console.log("Submitting")
+      let month = this.state.months.indexOf(document.getElementById("month").value)
+      let day = parseInt(document.getElementById("day").value)
+      let year = parseInt(document.getElementById("year").value)
+
+      if (day > 31 || day < 1 || isNaN(day) || isNaN(year)) {
+        document.getElementById("specialMessage").innerText = "Really? Come on. Be serious."
+        return
+      }
+      if ((year === 2025 && month <= 3 && day <= 16) || (year === 2025 && month < 3) || (year < 2025) ) {
+        document.getElementById("specialMessage").innerText = "Earliest data collection started on 4/17/2025"
+        return 
+      }
+      const date = new Date();
+      if ((year >= date.getFullYear() + 1) || (year >= date.getFullYear() && month > date.getMonth())) {
+        document.getElementById("specialMessage").innerText = "Clairvoyant news coming in future update!"
+        return 
+      }
+      document.getElementById("specialMessage").innerText = "";
+      // TODO run date search
+    }
+
     return (
       <div className="App">
         <div id="header">
-          <h1>Elliot's News Aggregator</h1>
-          <span>Your daily dose of news from around the web</span>
+          <h1>Elliot's News <br></br>Aggregator</h1>
+
+          <div id="calender">
+          <select id="month" name="month">
+            <option value="january">January</option>
+            <option value="february">February</option>
+            <option value="march">March</option>
+            <option value="april">April</option>
+            <option value="may">May</option>
+            <option value="june">June</option>
+            <option value="july">July</option>
+            <option value="august">August</option>
+            <option value="september">September</option>
+            <option value="october">October</option>
+            <option value="november">November</option>
+            <option value="december">December</option>
+          </select>
+            <input id="day"></input>
+            <input id="year"></input>
+          </div>
+
+          <div id="yestermorrow">
+            <span className="customButton" id="yesterday" onClick={queryYesterday}>⇽ Yesterday</span>
+            {/* <span id="dividingLine"></span> */}
+            <span className="customButton" id="tomorrow" onClick={queryTomorrow}>Tomorrow ⇾</span>
+          </div>
+
+          <div id="queryDate">
+            <span className="customButton" onClick={submit}>Search</span>
+          </div>
+
+          <div id="specialMessage"></div>
         </div>
-        <div id="seperator"></div>
+
         <div id="news">
           {this.state.newsData.map((newsArrayes, index) => (
             <div className="newsHeading" key={index}>
-              <h1>{newsArrayes[0]}</h1>
-              <div className="logos"><h2>Reported by:</h2>{newsArrayes.map((newsArray, index) => 
+              <h1 className="newsTitle">{newsArrayes[0]}</h1>
+
+              <div className="logos">{newsArrayes.map((newsArray, index) => 
                 <div className="logoLinks" key={index}>{loadLogoLinks(newsArray, index)}</div>
               )}</div>
             </div>
