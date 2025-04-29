@@ -1,4 +1,4 @@
-// server.js
+// Aggregator Server
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
@@ -10,8 +10,9 @@ const app = express();
 const PORT = 5000;
 let newsData;
 
+
 app.use(cors());
-app.get('/news', async (req, res) => {
+app.get('/currentNews', async (req, res) => {
   try {
     res.json(newsData);
   } catch (error) {
@@ -20,19 +21,35 @@ app.get('/news', async (req, res) => {
   }
 });
 
-const fetchNewsData = async () => {
-  console.log("Running fetchNewsData");
-  // const today = new Date();
-  // let data = await fetchHeadlines_Date(today.toISOString().slice(0, 10))
+app.get('/pastNews', (req, res) => {
+  const date = req.query.date;
+  console.log(`Received GET request for date: ${date}`);
+  try {
+    fetchHeadlines_Date(date)
+    .then(response => {
+      console.log(response)
+      res.json(response[0].news)
+    })
+  } catch (error) {
+    console.error('Error calling microservice for pastNews:', error);
+    res.status(500).json({ error: 'Failed to fetch microservice data for pastNews' });
+  }
+});
 
+const fetchCurrentNews = async () => {
+  console.log("Running fetchCurrentNews");
   let data = await fetchHeadlines_Recent();
   console.log(data);
   newsData = await data[0].news;
 }
 
-fetchNewsData();
-// setInterval(fetchNewsData, 60000);
+fetchCurrentNews();
+// setInterval(fetchCurrentNews, 60000);
 
+// (async () => {
+//   let test = await fetchHeadlines_Date("2025-04-25");
+//   console.log(test);
+// })();
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);

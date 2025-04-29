@@ -6,7 +6,7 @@ const uri = process.env.mongoConnectionString;
 const client = new MongoClient(uri);
 
 const fetchHeadlines_Date = async (targetDate) => {
-    // Fetches the the news from a given YYYY-MM-DD
+    // Fetches the the news from a given YYYY-MM-DD string parameter
     try {
         await client.connect();
         console.log("Connected to MongoDB ", targetDate);
