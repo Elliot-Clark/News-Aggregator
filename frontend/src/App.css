@@ -1,9 +1,6 @@
 .App {
   text-align: center;
-
-  /* background-color: #ffffff; */
   color: black;
-  height: 100vh;
   margin: 0;
   padding: 0;
 }
@@ -43,6 +40,7 @@ body {
       text-align: center;
       width: 110px;
       border: 1px solid white;
+      
     }    
 
     > select {
@@ -125,7 +123,7 @@ body {
   }
 
   .newsHeadlines:hover {
-    background-color: rgba(255, 255, 255, 0.938);
+    background-color: rgb(245, 240, 231);
     border-left: 2px solid rgb(0, 0, 0);
     border-radius: 10px;
     transition: all 1s ease;
@@ -188,44 +186,3 @@ body {
     }
   }
 }
-
-
-
-  /* .newsHeading {
-    font-size: calc(1px + 1.5vmin);
-    margin: 2em;
-    border: 1px solid black;
-    padding: 1.5em;
-    border-radius: 10px;
-  }
-
-  .newsTitle::after {
-    height: 1px;
-    width: auto;
-    background-color: #000000;
-    margin: 20px;
-    display: block;
-    content: "";
-  }
-
-  img {
-    height: 10vw;
-    width: 10vw;
-    max-height: 75px;
-    max-width: 75px;
-    min-height: 50px;
-    min-width: 50px;
-  }
-
-  .logos {
-    font-size: calc(1px + 2vmin);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-    .logoLinks {
-      display: inline-block;
-      margin: 1vw;
-    }
-  } */
-
