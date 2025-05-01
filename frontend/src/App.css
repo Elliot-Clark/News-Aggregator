@@ -9,95 +9,76 @@ body {
   background-color:rgb(255, 250, 242);
 }
 
+* {
+  /* border: 1px dashed aqua; */
+}
+
 #header {
-  min-height: 300px;
   color: white;
   font-family: capitana, sans-serif;
   background-color: #2d2d2d;
   display: flex;
-  flex-direction: column;
-  padding-top: 20px;
+  justify-content: space-around;
+  box-shadow: 0px 5px 20px#2d2d2d;
+;
 
   h1 {
-    font-size: 2em;
+    font-size: 1.2em;
     font-weight: bold;
     letter-spacing: 2px;
-    width: 50%;
-    margin: 0 auto;
-    padding-top: 1vh;
-  }
-  
-  #calender {
-    margin: .5em;
-
-    > select, > input {
-      background-color: #000000;
-      color: white;
-      font-weight: bold;
-      font-size: 1em;
-      margin: 1vw;
-      height: 30px;
-      text-align: center;
-      width: 110px;
-      border: 1px solid white;
-      
-    }    
-
-    > select {
-      height: 35px;
-    }
+    width: 55%;
+    margin: 10px auto;
+    text-align: left;
+    padding-left: 15px;
   }
 
-  #yestermorrow {
-    text-align: center;
+  #dateSelectionContainer {
+    width: 45%;
     display: flex;
     justify-content: space-around;
-    margin: 0 auto;
-   }
 
-   .customButton {
-    cursor: pointer;
-    padding: 12px;
-    border-radius: 10px;
-    background-color: #000000;
-    color: white;
-    font-size: 1em;
-    font-weight: bold;
-    border: 1px solid white;
-    text-wrap: nowrap;
-    user-select: none;
-  }
+    * {
+      margin: 10px;
+    }
 
-  .customButton:hover {
-    color:black;
-    background-color: white;
-    transition: all .5s ease;
-  }
+    .customButton {
+      cursor: pointer;
+      padding: 5px;
+      border-radius: 10px;
+      background-color: #000000;
+      color: white;
+      font-size: 1em;
+      font-weight: bold;
+      border: 1px solid white;
+      text-wrap: nowrap;
+      user-select: none;
+    }
+  
+    .customButton:hover {
+      color:black;
+      background-color: white;
+      transition: all .5s ease;
+    }
 
-  #yesterday {
-    margin-right: 5%;
-  }
+    #calendarContainer {
+      margin: 0;
+    }
 
-  #tomarrow {
-    margin-left: 5%;
-  }
+    input, select {
+      font-size: 1em;
+      font-weight: bold;
+      background-color: black;
+      color: white;
+      padding: 5px;  
+    }
 
-  #dividingLine {
-    content: "|";
-    background-color: #fcfbf9;
-    width: 1px;
-  }
+    #day {
+      width: 30px;
+    }
 
-  #queryDate {
-    display: block;
-    margin-top: 40px;
-    margin-bottom: 40px;
-  }
-
-  #specialMessage {
-    font-weight: bold;
-    font-size: 1em;
-    margin: 10px;
+    #year {
+      width: 60px;
+    }
   }
 }
 
@@ -105,9 +86,10 @@ body {
   color: #1e1e1e;
   width: 65vw;
   margin: 0 auto;
-  margin-top: 2vh;
+  margin-top: 4vh;
   padding: 5%;
   text-align: left;
+  box-shadow: 10px 10px 10px 10px rgb(240, 240, 240);
 
   .newsHeadlines {
     display: flex;

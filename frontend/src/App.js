@@ -24,7 +24,7 @@ class App extends Component {
           "Donald Trump is facing criticism for stating that Ukrainian President Zelenskyy is prolonging the war by refusing to cede Crimea to Russia.",
           "cnn.com/2025/04/23/europe/rubio-russia-ukraine-ceasefire-talks-intl-hnk/index.html",
           "apnews.com/article/russia-ukraine-war-peace-talks-london-4f35dc70f521e2363218f4c40748caba",
-          "npr.org/2025/04/23/nx-s1-5373407/ukraine-peace-talks-us-trump-russia-putin"
+          "test.org/2025/04/23/nx-s1-5373407/ukraine-peace-talks-us-trump-russia-putin"
       ],
       [
           "A dozen states are suing the Trump administration over its tariff policy, claiming it is unlawful and disrupts the American economy.",
@@ -223,38 +223,41 @@ class App extends Component {
     return (
       <div className="App">
         <div id="header">
-          <h1>Elliot's News <br></br>Aggregator</h1>
+          <h1>Elliot's News Aggregator</h1>
 
-          <div id="calender">
-          <select id="month" name="month">
-            <option value="january">January</option>
-            <option value="february">February</option>
-            <option value="march">March</option>
-            <option value="april">April</option>
-            <option value="may">May</option>
-            <option value="june">June</option>
-            <option value="july">July</option>
-            <option value="august">August</option>
-            <option value="september">September</option>
-            <option value="october">October</option>
-            <option value="november">November</option>
-            <option value="december">December</option>
-          </select>
-            <input id="day"></input>
-            <input id="year"></input>
-          </div>
-
-          <div id="yestermorrow">
+          <div id="dateSelectionContainer">
             <span className="customButton" id="yesterday" onClick={queryYesterday}>⇽ Yesterday</span>
-            <span className="customButton" id="tomorrow" onClick={queryTomorrow}>Tomorrow ⇾</span>
-          </div>
+            
+            <div id="calendarContainer">
+              <select id="month" name="month">
+                <option value="january">January</option>
+                <option value="february">February</option>
+                <option value="march">March</option>
+                <option value="april">April</option>
+                <option value="may">May</option>
+                <option value="june">June</option>
+                <option value="july">July</option>
+                <option value="august">August</option>
+                <option value="september">September</option>
+                <option value="october">October</option>
+                <option value="november">November</option>
+                <option value="december">December</option>
+              
+              </select>
+              <input id="day"></input>
+              <input id="year"></input>
+            </div>
 
-          <div id="queryDate">
+            <span className="customButton" id="tomorrow" onClick={queryTomorrow}>Tomorrow ⇾</span>
+
+            
             <span className="customButton" onClick={submit}>Search</span>
           </div>
 
-          <div id="specialMessage"></div>
         </div>
+
+        <span id="specialMessage"></span>
+
 
         <div id="news">
           {this.state.newsData.map((newsArrayes, index) => (
