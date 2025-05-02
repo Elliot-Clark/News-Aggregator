@@ -46,11 +46,6 @@ const fetchCurrentNews = async () => {
 fetchCurrentNews();
 // setInterval(fetchCurrentNews, 60000);
 
-// (async () => {
-//   let test = await fetchHeadlines_Date("2025-04-25");
-//   console.log(test);
-// })();
-
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
