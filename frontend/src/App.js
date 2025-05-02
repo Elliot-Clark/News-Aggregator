@@ -211,7 +211,11 @@ class App extends Component {
         return 
       }
       const date = new Date();
-      if ((year >= date.getFullYear() + 1) || (year >= date.getFullYear() && month > date.getMonth())) {
+      if (
+        (year >= date.getFullYear() + 1) || 
+        (year >= date.getFullYear() && month > date.getMonth()) ||
+        (year >= date.getFullYear() && month >= date.getMonth() && day > date.getDate() + 1)
+      ) {
         document.getElementById("specialMessage").innerText = "Clairvoyant news coming in future update!"
         return 
       }
@@ -222,11 +226,11 @@ class App extends Component {
 
     return (
       <div className="App">
-        <div id="header">
+        <header>
           <h1>Elliot's News Aggregator</h1>
 
           <div id="dateSelectionContainer">
-            <span className="customButton" id="yesterday" onClick={queryYesterday}>⇽ Yesterday</span>
+            <span className="customDateSelectionButton" id="yesterday" onClick={queryYesterday}>⇽ Yesterday</span>
             
             <div id="calendarContainer">
               <select id="month" name="month">
@@ -248,13 +252,13 @@ class App extends Component {
               <input id="year"></input>
             </div>
 
-            <span className="customButton" id="tomorrow" onClick={queryTomorrow}>Tomorrow ⇾</span>
+            <span className="customDateSelectionButton" id="tomorrow" onClick={queryTomorrow}>Tomorrow ⇾</span>
 
             
-            <span className="customButton" onClick={submit}>Search</span>
+            <span className="customDateSelectionButton" id="search" onClick={submit}>Search</span>
           </div>
 
-        </div>
+        </header>
 
         <span id="specialMessage"></span>
 
@@ -274,6 +278,12 @@ class App extends Component {
             </div>
           ))}
         </div>
+
+        <footer>
+          <span>Copyright ©2025.</span>
+          <span>Made by Elliot Clark.</span>
+          <a href="https://github.com/Elliot-Clark/News-Aggregator" target="_blank" rel="noopener noreferrer"> Github Link</a>
+        </footer>
 
       </div>
     );
