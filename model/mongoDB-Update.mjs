@@ -19,7 +19,7 @@ async function storeData() {
     }
 
     await client.connect();
-    console.log("Connected successfully to MongoDB");
+    console.log("Connected successfully to MongoDB", today);
 
     const db = client.db(dbName);
     const collection = db.collection(collectionName);
