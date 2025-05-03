@@ -10,7 +10,6 @@ const app = express();
 const PORT = 5000;
 let newsData;
 
-
 app.use(cors());
 app.get('/currentNews', async (req, res) => {
   try {
