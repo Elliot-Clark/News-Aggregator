@@ -12,6 +12,7 @@ import npr_logo from './images/npr_logo.svg';
 import politico_logo from './images/politico_logo.svg';
 import usatoday_logo from './images/usatoday_logo.svg';
 import washingtonpost_logo from './images/washingtonpost_logo.svg';
+import yahoo_logo from './images/yahoo_logo.svg'
 
 class App extends Component {
   state = {
@@ -140,7 +141,8 @@ class App extends Component {
         npr: npr_logo,
         politico: politico_logo,
         usatoday: usatoday_logo,
-        washingtonpost: washingtonpost_logo
+        washingtonpost: washingtonpost_logo,
+        yahoo: yahoo_logo
       };
       const source = newsArray.split(".")[0];
       const logoSrc = logoMap[source];
@@ -253,15 +255,12 @@ class App extends Component {
             </div>
 
             <span className="customDateSelectionButton" id="tomorrow" onClick={queryTomorrow}>Tomorrow ⇾</span>
-
-            
             <span className="customDateSelectionButton" id="search" onClick={submit}>Search</span>
           </div>
 
         </header>
 
         <span id="specialMessage"></span>
-
 
         <div id="news">
           {this.state.newsData.map((newsArrayes, index) => (

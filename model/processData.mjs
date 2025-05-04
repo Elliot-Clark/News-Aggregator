@@ -10,6 +10,7 @@ import getHeadlines_NPR from './webScrapers/nprScraper.js';
 import getHeadlines_Politico from './webScrapers/politicoScraper.js';
 import getHeadlines_USA from './webScrapers/usaScraper.js';
 import getHeadlines_WashingtonPost from './webScrapers/washingtonPostScraper.js';
+import getHeadlines_Yahoo from './webScrapers/yahooScraper.js'
 
 import dotenv from 'dotenv';
 dotenv.config();
@@ -17,7 +18,7 @@ const ai = new GoogleGenAI({ apiKey: process.env.geminiAPIKEY });
 
 
 async function getAllHeadlines() {
-  const currentHeadlines = ["CNN", "Fox News", "AP", "MSNBC", "ABC", "NPR", "Politico", "Usa Today", "Washington Post"]
+  const currentHeadlines = ["CNN", "Fox News", "AP", "MSNBC", "ABC", "NPR", "Politico", "Usa Today", "Washington Post", "Yahoo"]
   const allHeadlines = await Promise.all([
       getHeadlines_CNN(),
       getHeadlines_Fox(),
@@ -27,7 +28,8 @@ async function getAllHeadlines() {
       getHeadlines_NPR(),
       getHeadlines_Politico(),
       getHeadlines_USA(),
-      getHeadlines_WashingtonPost()
+      getHeadlines_WashingtonPost(),
+      getHeadlines_Yahoo()
   ]);
   console.log("All data gathered!", allHeadlines.map(index => index.length));
 
