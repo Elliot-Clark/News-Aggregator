@@ -232,7 +232,7 @@ class App extends Component {
           <h1>Elliot's News Aggregator</h1>
 
           <div id="dateSelectionContainer">
-            <span className="customDateSelectionButton" id="yesterday" onClick={queryYesterday}>⇽ Yesterday</span>
+            <button className="customDateSelectionButton" id="yesterday" onClick={queryYesterday}>⇽ Yesterday</button>
             
             <div id="calendarContainer">
               <select id="month" name="month">
@@ -254,8 +254,8 @@ class App extends Component {
               <input id="year"></input>
             </div>
 
-            <span className="customDateSelectionButton" id="tomorrow" onClick={queryTomorrow}>Tomorrow ⇾</span>
-            <span className="customDateSelectionButton" id="search" onClick={submit}>Search</span>
+            <button className="customDateSelectionButton" id="tomorrow" onClick={queryTomorrow}>Tomorrow ⇾</button>
+            <button className="customDateSelectionButton" id="search" onClick={submit}>Search</button>
           </div>
 
         </header>
