@@ -60,7 +60,13 @@ class App extends Component {
     fetch(`http://localhost:5000/pastNews?date=${encodeURIComponent(date)}`)
     .then(response => response.json())
     .then(data => {
-      this.arrangeData(data);
+      console.log(data);
+      if (data.length === 0) {
+        this.setState({ newsData: [["Not Valid Request"]]})
+        return
+      } else {
+        this.arrangeData(data);
+      }  
     })
     .catch(error => {
        console.error("Error fetching data for pastNews:", error);

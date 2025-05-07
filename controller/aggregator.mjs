@@ -26,8 +26,11 @@ app.get('/pastNews', (req, res) => {
   try {
     fetchHeadlines_Date(date)
     .then(response => {
-      console.log(response)
-      res.json(response[0].news)
+      if (!response || !response[0] || !response[0].news) {
+        res.json([])
+      } else {
+        res.json(response[0].news)
+      }
     })
   } catch (error) {
     console.error('Error calling microservice for pastNews:', error);
