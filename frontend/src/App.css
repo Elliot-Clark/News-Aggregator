@@ -1,5 +1,5 @@
 body {
-  background-color:rgb(255, 250, 242);
+  background-color: white;
   margin: 0;
   padding: 0;
 }
@@ -109,9 +109,14 @@ header {
   width: 65vw;
   margin: 0 auto;
   margin-top: 4vh;
+  min-height: 100vh;
   padding: 5%;
-  text-align: left;
+  text-align: center;
   box-shadow: 10px 10px 10px 10px rgb(240, 240, 240);
+
+  #loadingImage {
+    display: inline;
+  }
 
   .newsHeadlines {
     display: flex;
@@ -164,12 +169,16 @@ header {
       margin-right: 2rem;
       padding: 0;
       font-size: calc(.5rem + .7vw);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .logos {
       margin-top: 1rem;
       display: flex;
-  
+      flex-wrap: wrap;
+      
       .logoLinks img {
         max-height: 50px;
         max-width: 50px;
@@ -177,7 +186,7 @@ header {
         height: 4vw;
         min-height: 25px;
         min-width: 25px;
-        margin-right: 2vw;
+        margin-right: 1vw;
         border: 2px solid rgba(0, 0, 0, 0);
         padding: 5px;
         border-radius: 10px;

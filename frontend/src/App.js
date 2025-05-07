@@ -1,6 +1,7 @@
 //React Frontend
 import React, { Component } from "react";
 import './App.css';
+import loading from './images/loading_icon.gif';
 import link_logo from './images/link_logo.png';
 import abc_logo from './images/abcnews_logo.svg';
 import apnews_logo from './images/apnews_logo.svg';
@@ -20,57 +21,7 @@ class App extends Component {
       "january", "february", "march", "april", "may", "june",
       "july", "august", "september", "october", "november", "december"
     ],
-    newsData: [
-      [
-          "Donald Trump is facing criticism for stating that Ukrainian President Zelenskyy is prolonging the war by refusing to cede Crimea to Russia.",
-          "cnn.com/2025/04/23/europe/rubio-russia-ukraine-ceasefire-talks-intl-hnk/index.html",
-          "apnews.com/article/russia-ukraine-war-peace-talks-london-4f35dc70f521e2363218f4c40748caba",
-          "test.org/2025/04/23/nx-s1-5373407/ukraine-peace-talks-us-trump-russia-putin"
-      ],
-      [
-          "A dozen states are suing the Trump administration over its tariff policy, claiming it is unlawful and disrupts the American economy.",
-          "apnews.com/article/tariffs-lawsuit-what-states-sue-0d6531b7f60aaa2f7c6c35e0a944d4a9",
-          "npr.org/2025/04/23/g-s1-62417/trump-tariff-lawsuits-states",
-          "usatoday.com/story/news/nation/2025/04/23/democratic-states-sue-trump-tariffs/83238488007/"
-      ],
-      [
-          "The body of Pope Francis is lying in state at St. Peter's Basilica, allowing the public to pay their respects.",
-          "msnbc.com/chris-jansing-reports/watch/pope-francis-lying-in-state-for-three-days-at-st-peter-s-basilica-238177861669",
-          "apnews.com/article/vatican-pope-francis-public-viewing-st-peters-732d413b0eba7695d8a931af393097f4",
-          "npr.org/2025/04/23/nx-s1-5372537/pope-francis-body-lies-in-state-ahead-of-saturday-funeral",
-          "usatoday.com/story/news/world/2025/04/23/pope-francis-death-funeral-vatican-live-updates/83211551007/",
-          "washingtonpost.com/world/2025/04/23/pope-francis-viewing-st-peters/"
-      ],
-      [
-          "Michelle Obama has shared another reason why she did not attend President Trump's inauguration.",
-          "foxnews.com/media/michelle-obama-reveals-additional-reason-she-skipped-trumps-inauguration",
-          "abcnews.go.com/GMA/Culture/michelle-obama-opens-skipping-president-trumps-2nd-inauguration/story?id=121099190",
-          "usatoday.com/story/entertainment/celebrities/2025/04/23/michelle-obama-trump-inauguration-carter-funeral/83229973007/"
-      ],
-      [
-          "Trump is facing scrutiny regarding potential influence or actions related to Elon Musk and his business ventures.",
-          "cnn.com/2025/04/23/business/elon-musk-lasting-brand-damage-tesla-doge/index.html",
-          "apnews.com/article/tesla-trump-musk-evs-doge-cybercab-brand-b9c9151c7852b8f1c10aaacb8fe6c8b8",
-          "msnbc.com/opinion/msnbc-opinion/elon-musk-doge-trump-administration-tesla-earnings-rcna202574",
-          "politico.com/news/2025/04/23/elon-musk-doge-trump-00306673"
-      ],
-      [
-          "Pete Hegseth's tenure at the Pentagon is under scrutiny, with reports of turmoil and mismanagement.",
-          "msnbc.com/top-stories/latest/pete-hegseth-chaotic-pentagon-mismanagement-rcna202602",
-          "politico.com/news/2025/04/22/pentagon-infighting-hegseth-fired-officials-00302709",
-          "washingtonpost.com/national-security/2025/04/23/hegseth-army-war-college/"
-      ],
-      [
-          "A pastor is calling for a boycott of Target due to concerns about the company's diversity, equity, and inclusion (DEI) initiatives.",
-          "apnews.com/article/target-boycott-diversity-equity-inclusion-dei-8d0b3367ff4585fcf069e286dbb601c1",
-          "abcnews.go.com/US/wireStory/pastor-calls-full-target-boycott-concerns-diversity-equity-121103098"
-      ],
-      [
-          "Trump administration looking at 'baby bonus' to incentivize public to have more children",
-          "abcnews.go.com/Politics/trump-administration-5000-baby-bonus-incentivize-public-children/story?id=121094707",
-          "foxnews.com/media/the-view-co-hosts-lose-over-trump-backing-idea-give-5000-baby-bonus-mothers"
-      ]
-  ]
+    newsData: []
   }
 
   arrangeData = (data) => {
@@ -110,7 +61,6 @@ class App extends Component {
     .then(response => response.json())
     .then(data => {
       this.arrangeData(data);
-      console.log("here", data)
     })
     .catch(error => {
        console.error("Error fetching data for pastNews:", error);
@@ -123,6 +73,17 @@ class App extends Component {
     document.getElementById("month").value = this.state.months[date.getMonth()];
     document.getElementById("day").value = date.getDate();
     this.fetchCurrentNews();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    //Displays a loading image only when there's no news
+    if (prevState.newsData !== this.state.newsData && this.state.newsData.length === 0) {
+      document.getElementById("news").style.textAlign = "center";
+      document.getElementById("loadingImage").style.display = "inline"
+    } else {
+      document.getElementById("news").style.textAlign = "left";
+      document.getElementById("loadingImage").style.display = "none"
+    }
   }
 
   render() {
@@ -199,7 +160,6 @@ class App extends Component {
     }
 
     const submit = () => {
-      console.log("Submitting")
       let month = this.state.months.indexOf(document.getElementById("month").value)
       let day = parseInt(document.getElementById("day").value)
       let year = parseInt(document.getElementById("year").value)
@@ -221,6 +181,7 @@ class App extends Component {
         document.getElementById("specialMessage").innerText = "Clairvoyant news coming in future update!"
         return 
       }
+      this.setState({newsData: []})
       document.getElementById("specialMessage").innerText = "";
       const query = year + "-" + String(month + 1).padStart(2, '0') + "-" + String(day).padStart(2, '0')
       this.fetchPastNews(query);
@@ -263,13 +224,14 @@ class App extends Component {
         <span id="specialMessage"></span>
 
         <div id="news">
+          <img id="loadingImage" src={loading} alt="Gif for loading news in progress"></img>
           {this.state.newsData.map((newsArrayes, index) => (
             <div className="newsHeadlines" key={index}>
               <a href={"https://www." + newsArrayes[1]} target="_blank" rel="noopener noreferrer">
                 <h3 className="newsTitle">{newsArrayes[0]}</h3>
               </a>
               <div className="linkSection">
-                <h4>Links:</h4>
+                {/* <h4>Links:</h4> */}
                 <div className="logos">{newsArrayes.map((newsArray, index) => 
                   <div className="logoLinks" key={index}>{loadLogoLinks(newsArray, index)}</div>
                 )}</div>
@@ -281,7 +243,7 @@ class App extends Component {
         <footer>
           <span>Copyright ©2025.</span>
           <span>Made by Elliot Clark.</span>
-          <a href="https://github.com/Elliot-Clark/News-Aggregator" target="_blank" rel="noopener noreferrer"> Github Link</a>
+          <a href="https://github.com/Elliot-Clark/News-Aggregator" target="_blank" rel="noopener noreferrer"> Github Link for this Project</a>
         </footer>
 
       </div>
