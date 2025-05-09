@@ -1,8 +1,8 @@
-const { chromium } = require('playwright');
+const { firefox } = require('playwright');
 
 async function getHeadlines_WashingtonPost() {
-    const browser = await chromium.launch({
-        headless: false,
+    const browser = await firefox.launch({
+        headless: true
     });
     const context = await browser.newContext();
     const page = await context.newPage();

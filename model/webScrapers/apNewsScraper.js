@@ -1,7 +1,7 @@
-const { chromium } = require('playwright');
+const { firefox } = require('playwright');
 
 async function getHeadlines_AP() {
-    const browser = await chromium.launch({
+    const browser = await firefox.launch({
         headless: true
     });
     const context = await browser.newContext();
@@ -25,10 +25,8 @@ async function getHeadlines_AP() {
     // Only want 20 results. Do not want to keep entries without a title or link.
     headlines = headlines.filter((item, index) => index < 20 && item.text !== '' && item.href !== null);
 
-    //---------------------
     await context.close();
     await browser.close();
-
     return headlines;
 }
 

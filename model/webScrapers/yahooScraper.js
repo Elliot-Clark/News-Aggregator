@@ -2,9 +2,12 @@ const { chromium } = require('playwright');
 
 async function getHeadlines_Yahoo() {
   const browser = await chromium.launch({
-      headless: false
+      headless: true
   });
-  const context = await browser.newContext();
+  const context = await browser.newContext({
+    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36',
+    viewport: { width: 1280, height: 800 }
+  });
   const page = await context.newPage();
 
   await page.goto('https://www.yahoo.com/', { waitUntil: 'domcontentloaded' });
@@ -27,7 +30,7 @@ async function getHeadlines_Yahoo() {
   headlines.splice(20);
   await context.close();
   await browser.close();
-  return await headlines;
+  return  headlines;
 }
 
 module.exports = getHeadlines_Yahoo;
