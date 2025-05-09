@@ -2,13 +2,16 @@
   "name": "job-app",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
-  "scripts": {},
+  "main": "controller/aggregator.mjs",
+  "scripts": {
+    "dev": "nodemon controller/aggregator.mjs"
+  },
   "author": "Elliot Clark",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.51.1",
-    "@types/node": "^22.14.0"
+    "@types/node": "^22.14.0",
+    "nodemon": "^3.1.10"
   },
   "dependencies": {
     "@google/genai": "^0.8.0",
