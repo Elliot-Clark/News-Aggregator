@@ -40,7 +40,12 @@ const fetchCurrentNews = async () => {
   console.log("Running fetchCurrentNews");
   let data = await fetchHeadlines_Recent();
   console.log(data);
-  newsData = await data[0].news;
+   if (!data || !data[0] || !data[0].news) {
+    console.log("There was an error fetching current news")
+    return
+  } else {
+    newsData =  data[0].news;
+  }
 }
 
 fetchCurrentNews();
