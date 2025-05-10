@@ -2,8 +2,9 @@
   "name": "job-app",
   "version": "1.0.0",
   "description": "",
-  "main": "controller/aggregator.mjs",
+  "main": "node controller/aggregator.mjs",
   "scripts": {
+    "start": "node controller/aggregator.mjs",
     "dev": "nodemon controller/aggregator.mjs"
   },
   "author": "Elliot Clark",
