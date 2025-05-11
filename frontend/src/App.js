@@ -42,7 +42,7 @@ class App extends Component {
 
   fetchCurrentNews = async () => {
     // On page load, gets the most recently saved news from the backend.
-    fetch('http://localhost:5000/currentNews')
+    fetch('https://news-aggregator-0z5i.onrender.com/currentNews')
       .then(response => response.json())
       .then(data => {
         this.arrangeData(data);
@@ -54,7 +54,7 @@ class App extends Component {
 
   fetchPastNews = async (date) => {
     // Upon user searching a valid date, sends a request to the backend to get news on that day from the database.
-    fetch(`http://localhost:5000/pastNews?date=${encodeURIComponent(date)}`)
+    fetch(`https://news-aggregator-0z5i.onrender.com/pastNews?date=${encodeURIComponent(date)}`)
     .then(response => response.json())
     .then(data => {
       console.log(data);
