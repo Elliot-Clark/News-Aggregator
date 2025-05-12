@@ -76,6 +76,7 @@ class App extends Component {
       document.getElementById("news").style.textAlign = "center";
       document.getElementById("loadingImage").style.display = "inline"
     } else {
+      document.getElementById("specialMessage").innerText = "\n";
       document.getElementById("news").style.textAlign = "left";
       document.getElementById("loadingImage").style.display = "none"
     }

@@ -15,6 +15,7 @@ class Header extends Component {
         document.getElementById("month").value = this.state.months[date.getMonth()];
         document.getElementById("day").value = date.getDate();
         this.props.fetchCurrentNews();
+        document.getElementById("specialMessage").innerText = "This project is currently hosted on free Render servers. Because of this please allow at least 20 seconds for the backend server to boot up."
     }
 
     render() {
@@ -83,7 +84,7 @@ class Header extends Component {
                 return 
             }
             this.setState({newsData: []})
-            document.getElementById("specialMessage").innerText = "";
+            document.getElementById("specialMessage").innerText = "\n";
             const query = year + "-" + String(month + 1).padStart(2, '0') + "-" + String(day).padStart(2, '0')
             this.props.fetchPastNews(query);
         }
