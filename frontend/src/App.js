@@ -26,7 +26,7 @@ class App extends Component {
     if (!data) {
       return
     }
-    for (let x = 1; x < data.length -1; x++) {
+    for (let x = 1; x < data.length; x++) {
       if (x <= 0) {
         continue
       }
@@ -57,7 +57,6 @@ class App extends Component {
     fetch(`https://news-aggregator-0z5i.onrender.com/pastNews?date=${encodeURIComponent(date)}`)
     .then(response => response.json())
     .then(data => {
-      console.log(data);
       if (data.length === 0) {
         this.setState({ newsData: [["Not Valid Request"]]})
         return
