@@ -35,13 +35,14 @@ async function getAllHeadlines() {
 
   allHeadlines.forEach((element, index) => {
     if (element.length <= 2) {
-      fs.appendFile('../logs/errors.txt', `\nSource of ${currentHeadlines[index]} returned no headlines at: ${new Date()}`, err => {
-        if (err) {
-          console.error(err);
-        } else {
-          console.log("Error File written")
-        }
-      });
+      console.log(`Source of ${currentHeadlines[index]} returned no headlines at: ${new Date()}`)
+      // fs.appendFile('../logs/errors.txt', `\nSource of ${currentHeadlines[index]} returned no headlines at: ${new Date()}`, err => {
+      //   if (err) {
+      //     console.error(err);
+      //   } else {
+      //     console.log("Error File written")
+      //   }
+      // });
     }
   })
   return allHeadlines;
