@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 const uri = process.env.mongoConnectionString;
 
-async function storeData() {
+async function scrapeData() {
   const today = new Date();
 
   const dbName = "newsAggregator";
@@ -56,4 +56,6 @@ async function storeData() {
   }
 }
 
-storeData();
+// scrapeData();
+
+export default scrapeData;
