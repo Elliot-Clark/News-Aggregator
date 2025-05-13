@@ -12,8 +12,13 @@ let newsData;
 app.use(cors());
 app.get('/currentNews', async (req, res) => {
   try {
-    console.log("Sending Current News to Frontend")
-    res.json(newsData);
+    console.log("Sending Current News to Frontend", time)
+      if ((Date.now() - newsData.time) > 7200000) {
+      // If it has been more than two hours since the last news update, fetch the most recent news.
+      await fetchCurrentNews();
+    }
+    res.json(newsData.news);
+
   } catch (error) {
     console.error('Error calling microservice:', error);
     res.status(500).json({ error: 'Failed to fetch microservice data ' });
@@ -42,16 +47,15 @@ const fetchCurrentNews = async () => {
   console.log("Running fetchCurrentNews");
   let data = await fetchHeadlines_Recent();
   console.log(data);
-  console.log(data[0].time)
    if (!data || !data[0] || !data[0].news) {
     console.log("There was an error fetching current news")
     return
   } else {
-    newsData = data[0].news;
-    if ((Date.now() - data[0].time) > 21600000) {
-      // If it has been more than six hours since the last news update, start up the web scrapers.
-      scrapeData();
-    }
+    newsData = data[0];
+    // if ((Date.now() - data[0].time) > 21600000) {
+    //   // If it has been more than six hours since the last news update, start up the web scrapers.
+    //   scrapeData();
+    // }
   }
 }
 
