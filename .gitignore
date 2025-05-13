@@ -1,5 +1,5 @@
 .env
-/logs
+logs/
 # Playwright
 node_modules/
 /test-results/
