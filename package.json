@@ -4,7 +4,7 @@
   "description": "",
   "main": "node controller/aggregator.mjs",
   "scripts": {
-    "start": "node controller/aggregator.mjs",
+    "start": "npx playwright install && node controller/aggregator.mjs",
     "dev": "nodemon controller/aggregator.mjs",
     "news": "node model/mongoDB-update.mjs"
   },
