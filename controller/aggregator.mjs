@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import fetchHeadlines_Date from '../model/mongoDB-fetchDate.mjs';
 import fetchHeadlines_Recent from '../model/mongoDB-fetchRecent.mjs';
+import scrapeData from '../model/mongoDB-Update.mjs'
 
 const app = express();
 const PORT = 5000;
@@ -11,6 +12,7 @@ let newsData;
 app.use(cors());
 app.get('/currentNews', async (req, res) => {
   try {
+    console.log("Sending Current News to Frontend")
     res.json(newsData);
   } catch (error) {
     console.error('Error calling microservice:', error);
@@ -40,16 +42,23 @@ const fetchCurrentNews = async () => {
   console.log("Running fetchCurrentNews");
   let data = await fetchHeadlines_Recent();
   console.log(data);
+  console.log(data[0].time)
    if (!data || !data[0] || !data[0].news) {
     console.log("There was an error fetching current news")
     return
   } else {
-    newsData =  data[0].news;
+    newsData = data[0].news;
+    if ((Date.now() - data[0].time) > 21600000) {
+      // If it has been more than six hours since the last news update, start up the web scrapers.
+      scrapeData();
+    }
   }
 }
 
 fetchCurrentNews();
 // setInterval(fetchCurrentNews, 60000);
+// scrapeData();
+// setInterval(scrapeData, 60000);
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
