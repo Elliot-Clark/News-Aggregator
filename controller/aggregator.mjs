@@ -12,7 +12,7 @@ let newsData;
 app.use(cors());
 app.get('/currentNews', async (req, res) => {
   try {
-    console.log("Sending Current News to Frontend", time)
+    console.log("Sending Current News to Frontend", newsData.time)
       if ((Date.now() - newsData.time) > 7200000) {
       // If it has been more than two hours since the last news update, fetch the most recent news.
       await fetchCurrentNews();
