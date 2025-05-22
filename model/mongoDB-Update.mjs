@@ -56,6 +56,6 @@ async function scrapeData() {
   }
 }
 
-// scrapeData();
+scrapeData();
 
 export default scrapeData;
