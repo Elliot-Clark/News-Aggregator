@@ -13,7 +13,7 @@ This project was made not just to exercise my skills as a developer, but also as
 
 ### Visit the Site
 
-This project is currently being hosted on free Render servers and thus has a small wait time (around 20 seconds) for BackEnd services to spin up upon new users visiting.
+This project is currently being hosted on free Render servers and thus has a small wait time (around 30 seconds) for BackEnd services to spin up upon new users visiting.
 
 Click to Visit [Elliot’s News Aggregator](https://news-aggregator-gh0q.onrender.com/).
 

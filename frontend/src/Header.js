@@ -15,7 +15,7 @@ class Header extends Component {
         document.getElementById("month").value = this.state.months[date.getMonth()];
         document.getElementById("day").value = date.getDate();
         this.props.fetchCurrentNews();
-        document.getElementById("specialMessage").innerText = "This project is currently hosted on free Render servers. Because of this please allow at least 20 seconds for the backend server to boot up."
+        document.getElementById("specialMessage").innerText = "This project is currently hosted on free Render servers. Because of this please allow at least 30 seconds for the backend server to boot up."
     }
 
     render() {
