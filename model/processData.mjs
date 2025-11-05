@@ -51,7 +51,9 @@ async function getAllHeadlines() {
 async function geminiCall() {
   try {
     const gatheredHeadlines = await getAllHeadlines();
-    const response = await ai.models.generateContent({
+
+    async function geminiFetch(gatheredHeadlines)  {
+      const response = await ai.models.generateContent({
       model: "gemini-2.0-flash",
       contents: `The following data is a collection of data with headlines from news websites, followed by their respective URLs. 
       Go through the data and find the most occuring events, it must be mentioned on at least two different news sites to qualify. 
@@ -72,20 +74,25 @@ async function geminiCall() {
           "headline URL 2..."
         ],
       ]
-      
+
       ${JSON.stringify(gatheredHeadlines)}`,
-    });
-    let stringResponse = response.text.toString();
-    let arrayResponse;
-    try {
-      arrayResponse = JSON.parse(stringResponse.slice(stringResponse.indexOf('['), stringResponse.length - 4))
-    } catch {
-      console.log("AI response parse text error");
-      console.log(stringResponse);
+      });
+      let stringResponse = response.text.toString();
+      try {
+        // The resposne from gemini can convert into the desired JSON format 98% of the time
+        let formattedResponse = stringResponse.slice(stringResponse.indexOf('['), stringResponse.length - 4);
+        let arrayResponse = JSON.parse(formattedResponse)
+        return arrayResponse;
+      } catch {
+        // For when it doesn't, we simply need to send the data back to gemini and give it another go
+        console.log("AI response parse text error:");
+        console.log(stringResponse);
+      }
     }
 
+    let jsonResponse = await geminiFetch(gatheredHeadlines);
     console.log("AI response formatted!");
-    return arrayResponse;
+    return jsonResponse;
   }
   catch (error) {
     console.error("An error occurred:", error);
