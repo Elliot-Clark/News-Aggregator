@@ -76,9 +76,15 @@ async function geminiCall() {
       ${JSON.stringify(gatheredHeadlines)}`,
     });
     let stringResponse = response.text.toString();
-    let formatedResponse = stringResponse.slice(stringResponse.indexOf('['), stringResponse.length - 4);
-    let arrayResponse = JSON.parse(formatedResponse)
-    console.log("Ai response formatted!");
+    let arrayResponse;
+    try {
+      arrayResponse = JSON.parse(stringResponse.slice(stringResponse.indexOf('['), stringResponse.length - 4))
+    } catch {
+      console.log("AI response parse text error");
+      console.log(stringResponse);
+    }
+
+    console.log("AI response formatted!");
     return arrayResponse;
   }
   catch (error) {
