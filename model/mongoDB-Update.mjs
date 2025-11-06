@@ -14,7 +14,7 @@ async function scrapeData() {
   try {
     // Launches the news headlines collection from all the scrapers.
     const summerizedHeadlines = await getAllHeadlines();
-    if (summerizedHeadlines.length === 0) {
+    if (!summerizedHeadlines) {
       console.log("Error fetching any headlines");
       return
     }
