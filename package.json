@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node controller/aggregator.mjs",
     "dev": "nodemon controller/aggregator.mjs",
-    "news": "node model/mongoDB-update.mjs"
+    "news": "node model/initScrapeData.mjs"
   },
   "author": "Elliot Clark",
   "license": "ISC",
