@@ -36,13 +36,6 @@ async function getAllHeadlines() {
   allHeadlines.forEach((element, index) => {
     if (element.length <= 2) {
       console.log(`Source of ${currentHeadlines[index]} returned no headlines at: ${new Date()}`)
-      // fs.appendFile('../logs/errors.txt', `\nSource of ${currentHeadlines[index]} returned no headlines at: ${new Date()}`, err => {
-      //   if (err) {
-      //     console.error(err);
-      //   } else {
-      //     console.log("Error File written")
-      //   }
-      // });
     }
   })
   return allHeadlines;
@@ -52,7 +45,13 @@ async function geminiCall() {
   try {
     const gatheredHeadlines = await getAllHeadlines();
 
-    async function geminiFetch(gatheredHeadlines)  {
+    async function geminiFetch(gatheredHeadlines, attempt)  {
+
+      if (attempt > 1) {
+        console.log("Repeat gemini call failed");
+        return 
+      }
+      
       const response = await ai.models.generateContent({
       model: "gemini-2.0-flash",
       contents: `The following data is a collection of data with headlines from news websites, followed by their respective URLs. 
@@ -87,10 +86,12 @@ async function geminiCall() {
         // For when it doesn't, we simply need to send the data back to gemini and give it another go
         console.log("AI response parse text error:");
         console.log(stringResponse);
+        console.log("Trying again...");
+        return await geminiFetch(gatheredHeadlines, attempt++);
       }
     }
 
-    let jsonResponse = await geminiFetch(gatheredHeadlines);
+    let jsonResponse = await geminiFetch(gatheredHeadlines, 0);
     console.log("AI response formatted!");
     return jsonResponse;
   }
