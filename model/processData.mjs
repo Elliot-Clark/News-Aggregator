@@ -51,7 +51,7 @@ async function geminiCall() {
         console.log("Repeat gemini call failed");
         return 
       }
-      
+
       const response = await ai.models.generateContent({
       model: "gemini-2.0-flash",
       contents: `The following data is a collection of data with headlines from news websites, followed by their respective URLs. 
@@ -87,6 +87,7 @@ async function geminiCall() {
         console.log("AI response parse text error:");
         console.log(stringResponse);
         console.log("Trying again...");
+        // But there's always a chance gemini is simply down or something else is causing the error, so we increment a max attempt amount so it doesn't try forever
         return await geminiFetch(gatheredHeadlines, attempt++);
       }
     }
