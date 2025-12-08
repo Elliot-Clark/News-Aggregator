@@ -53,12 +53,12 @@ async function geminiCall() {
       }
 
       const response = await ai.models.generateContent({
-      model: "gemini-2.0-flash",
+      model: "gemini-2.5-flash",
       contents: `The following data is a collection of data with headlines from news websites, followed by their respective URLs. 
       Go through the data and find the most occuring events, it must be mentioned on at least two different news sites to qualify. 
       Ignore any entries with missing text, or URL. Ignore any entires that seem like advertisements or don't seem like news.
       Respond only with an array of a maximum 8 smaller arrays, each containing a single sentence summary of the event at index 0, and in the following indexes put the exact URLs from each news organization that talked about it. 
-      Only list each news organization a maximum of once per array. 
+      Only list each news organization a maximum of once per array. Do not add any additional text to the URLs.
       Example format:
       [
         [
