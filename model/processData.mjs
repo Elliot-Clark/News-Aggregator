@@ -93,6 +93,13 @@ async function geminiCall() {
     }
 
     let jsonResponse = await geminiFetch(gatheredHeadlines, 0);
+    // Logging the news so headlines can be read from the terminal
+    for(let i = 0; i < jsonResponse[0].length - 1; i++) {
+      console.log(jsonResponse[i][0]);
+      console.log(jsonResponse[i][1]);
+      console.log();
+    }
+
     console.log("AI response formatted!");
     return jsonResponse;
   }
