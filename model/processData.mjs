@@ -58,7 +58,7 @@ async function geminiCall() {
       Go through the data and find the most occuring events, it must be mentioned on at least two different news sites to qualify. 
       Ignore any entries with missing text, or URL. Ignore any entires that seem like advertisements or don't seem like news.
       Respond only with an array of a maximum 8 smaller arrays, each containing a single sentence summary of the event at index 0, and in the following indexes put the exact URLs from each news organization that talked about it. 
-      Only list each news organization a maximum of once per array. Do not add any additional text to the URLs.
+      Only list each news organization a maximum of once per array. Do not add any text such as www or https to the URLs.
       Example format:
       [
         [
@@ -94,7 +94,7 @@ async function geminiCall() {
 
     let jsonResponse = await geminiFetch(gatheredHeadlines, 0);
     // Logging the news so headlines can be read from the terminal
-    for(let i = 0; i < jsonResponse[0].length - 1; i++) {
+    for(let i = 0; i < 4; i++) {
       console.log(jsonResponse[i][0]);
       console.log(jsonResponse[i][1]);
       console.log();
