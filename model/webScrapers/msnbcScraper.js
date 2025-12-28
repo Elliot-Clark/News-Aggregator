@@ -7,9 +7,9 @@ async function getHeadlines_MSNBC() {
     const context = await browser.newContext();
     const page = await context.newPage();
 
-    await page.goto('https://www.msnbc.com/', { waitUntil: 'domcontentloaded' });
+    await page.goto('https://www.ms.now/', { waitUntil: 'domcontentloaded' });
     let headlines = await page.evaluate(() => {
-        return Array.from(document.querySelectorAll('h2.multistoryline__headline > a')).map(ele => {
+        return Array.from(document.querySelectorAll('a.rkv-card-headline-link')).map(ele => {
             let href = ele.getAttribute('href')
             if (href) {
               href = href.replace(/^https:\/\/(www\.)?/, '');

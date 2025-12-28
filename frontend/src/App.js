@@ -94,6 +94,7 @@ class App extends Component {
         cnn: cnn_logo,
         foxnews: foxnews_logo,
         foxbusiness: foxbusiness_logo,
+        ms: msnbc_logo,
         msnbc: msnbc_logo,
         npr: npr_logo,
         politico: politico_logo,
